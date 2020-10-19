@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 
 import './styles.css';
 
-function TeacherList() {
+const TeacherList: React.FC = () => {
   return (
     <div id="page-teacher-list" className="container">
       <PageHeader title="Esses são os proffys disponíves">
@@ -51,6 +51,6 @@ function TeacherList() {
       </main>
     </div>
   );
-}
+};
 
 export default TeacherList;

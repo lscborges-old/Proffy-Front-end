@@ -8,7 +8,7 @@ import warningIcon from '../../assets/images/icons/warning.svg';
 
 import './styles.css';
 
-function TeacherForm() {
+const TeacherForm: React.FC = () => {
   const [scheduleItems, setScheduleItems] = useState([
     { week_day: 0, from: '', to: '' },
   ]);
@@ -105,6 +105,6 @@ function TeacherForm() {
       </main>
     </div>
   );
-}
+};
 
 export default TeacherForm;
