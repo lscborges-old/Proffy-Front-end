@@ -30,6 +30,7 @@
         "prettier"
     ],
     "rules": {
+      "camelcase": "off",
       "no-use-before-define": "off",
       "react/jsx-curly-newline": "off",
       "prettier/prettier":"error",

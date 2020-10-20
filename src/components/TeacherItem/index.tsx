@@ -1,40 +1,60 @@
-import React from 'react'
+import React, { useCallback } from 'react';
 
-import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
+import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
+import api from '../../services/api';
 
-import './styles.css'
+import './styles.css';
 
-function TeacherItem() {
-  return(
-    <article className="teacher-item">
-    <header>
-      <img src="https://pbs.twimg.com/profile_images/532661239529230336/7g5Oglgi_400x400.jpeg" 
-      alt="Fernando Naruto"/>
-      <div>
-        <strong>Fernando Naruto</strong>
-        <span>Sedução</span>
-      </div>
-    </header>
-    
-    <p>
-      Entusiasta em técnicas de sedução avançadas
-      <br/><br/>
-      Apaixonado por seduzir e ser seduzido
-    </p>
-
-    <footer>
-      <p>
-        Preço/hora
-        <strong>R$ 80,00</strong>
-      </p>
-      <button type="button">
-        <img src={whatsappIcon} alt="Whatsapp"/>
-        Entrar em contato
-      </button>
-    </footer>
-
-  </article>
-  )
+export interface Teacher {
+  id: number;
+  avatar: string;
+  bio: string;
+  cost: number;
+  name: string;
+  subject: string;
+  whatsapp: string;
 }
 
-export default TeacherItem
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  const createNewConnection = useCallback(() => {
+    api.post('connections', {
+      user_id: teacher.id,
+    });
+  }, [teacher.id]);
+
+  return (
+    <article className="teacher-item">
+      <header>
+        <img src={teacher.avatar} alt={teacher.name} />
+        <div>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
+        </div>
+      </header>
+
+      <p>{teacher.bio}</p>
+
+      <footer>
+        <p>
+          Preço/hora
+          <strong>R$ {teacher.cost}</strong>
+        </p>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          onClick={createNewConnection}
+          href={`https://wa.me/${teacher.whatsapp}`}
+        >
+          <img src={whatsappIcon} alt="Whatsapp" />
+          Entrar em contato
+        </a>
+      </footer>
+    </article>
+  );
+};
+
+export default TeacherItem;
